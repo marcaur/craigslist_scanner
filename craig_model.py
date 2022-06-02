@@ -1,10 +1,8 @@
 #! /bin/python3
 """
-
 This is a model for my Craigslist Scanner
 You enter a city, category, keyword and the program scans the results to
 return a link to the post with the included keyword 
-
 """
 import requests, bs4, sys, city_dict, pprint
 from requests.exceptions import HTTPError
@@ -41,7 +39,6 @@ class search_craigslist:
         else:
             print(f"You chose {self.city}")
 
-    # *** still needs to be worked on *****
     def new_page():
         global NEXT_PAGE
         page_num =  [120,240,360,580]
@@ -128,9 +125,5 @@ class search_craigslist:
                 match += 1
             else:
                 print("Try another keyword")
-
         print(f"We found {match - 1} URLs that match the word: '{keyword}' and {no_match} that did not..")
-
-
-      
         
