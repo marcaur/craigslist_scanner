@@ -2,7 +2,9 @@
 """
 This is a model for my Craigslist Scanner
 You enter a city, category, keyword and the program scans the results to
-return a link to the post with the included keyword 
+return a link to the post with the included keyword
+
+Create CSV sheet with data from search 
 """
 import requests, bs4, sys, city_dict, pprint
 from requests.exceptions import HTTPError
