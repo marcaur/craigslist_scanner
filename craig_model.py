@@ -22,10 +22,6 @@ CATEGORIES = {'community': 'd/community/search/ccc', 'services': 'd/services/sea
 
 class search_craigslist:
 
-    # Collect the data that is being scanned 
-    TITLES = []
-    LINKS  = []
-
     def __init__(self,city,category):
         self.self = self
         self.city = city
@@ -67,7 +63,9 @@ class search_craigslist:
 
 
     def scan_site(self):
-        global res 
+        global res
+        global TITLES
+        global LINKS 
         CATEGORY_URL = URL[self.city] + CATEGORIES[self.category]
         
         try:
@@ -88,20 +86,14 @@ class search_craigslist:
         soup = bs4.BeautifulSoup(res.text, "html.parser")
         title_obj = soup.select("h3 > a")
 
+        TITLES = [title.getText() for title in title_obj]
 
-        # GET POSTS TITLE
-        for title in title_obj:
-            search_craigslist.TITLES.append(title.getText())
-
-        # Add the links for posts LINKS
-        for link in title_obj:
-            search_craigslist.LINKS.append(link.get("href"))
-
+        LINKS = [link.get("href") for link in title_obj]
 
     def view_results(self):
         global LOWER_KEYS
         # Complete dictionary of scanned links
-        TOTAL_LIST = dict(zip(search_craigslist.TITLES,search_craigslist.LINKS))
+        TOTAL_LIST = dict(zip(TITLES,LINKS))
 
         # keys converted to lowercase for input validation
         LOWER_KEYS = dict((t.lower(), l) for t, l in TOTAL_LIST.items())
